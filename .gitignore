@@ -1,2 +1,4 @@
 naive_attention/output.txt
 naive_attention/naive_attention
+sequential-flash-attention/sequential_flash_attention
+simple-parallel-flash-attention/simple_parallel_flash_attention

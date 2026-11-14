@@ -5,8 +5,8 @@
 CC = gcc
 CFLAGS = -O3 -std=c11 -Wall -Wextra
 
-N = 1024
-D = 64
+N = 2048#1024
+D = 256#64
 BQ = 32
 BK = 64
 
