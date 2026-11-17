@@ -7,10 +7,19 @@
 #include<math.h>
 #include<stdbool.h>
 #include<string.h>
+#include <time.h>
 
 
 #define DEFAULT_N 10
 #define DEFAULT_D 5
+
+
+// function to compute the elapsed time in milliseconds between two timespec structures
+static double elapsed_ms(struct timespec start, struct timespec end)
+{
+    return (end.tv_sec - start.tv_sec) * 1000.0 +
+           (end.tv_nsec - start.tv_nsec) / 1000000;
+}
 
 /*
  * Prints the contents of a 2D array. 
@@ -171,8 +180,23 @@ int main(int argc, char* argv[])
         print_matrix("V", N, d, V);
     }
 
-    
+    // define timespec to measure the elapsed time for the kernel execution
+    struct timespec start, end;
+
+    // start the time
+    clock_gettime(CLOCK_MONOTONIC, &start);
+
+    // call the naive attention function to compute the attention output
     naive_attention(N, d, Q, K, V, O);
+
+    // end the time
+    clock_gettime(CLOCK_MONOTONIC, &end);
+
+    // print the results, including the dimensions and the elapsed time 
+    // for the kernel execution
+    printf("N=%d d=%d kernel_ms=%.3f\n",
+           N, d, elapsed_ms(start, end));
+    
     
 
     if(verbose)
